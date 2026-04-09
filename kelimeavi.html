@@ -562,64 +562,64 @@
         // MASAÜSTÜ SEVİYELERİ (Her biri 6 Kelime)
         // Dosya 1 (Meslekler/Akrabalar) ve Dosya 2 (Güzel Davranışlar) içeriğine göre düzenlenmiştir.
 const desktopLevels = [
-    // Seviye 1: Temel Bakkal Ürünleri
+    // Seviye 1: Günlük Temel Eylemler (Fiiller)
     [
-        { word: 'خبز', color: colors[0], emoji: '🍞' },     // Ekmek
-        { word: 'حليب', color: colors[1], emoji: '🥛' },    // Süt
-        { word: 'سكر', color: colors[2], emoji: '🍬' },     // Şeker (Emoji değişti)
-        { word: 'بيض', color: colors[3], emoji: '🥚' },     // Yumurta (Tuz yerine eklendi)
-        { word: 'شاي', color: colors[4], emoji: '☕' },     // Çay
-        { word: 'عسل', color: colors[5], emoji: '🍯' },     // Bal
+        { word: 'أستيقظ', color: colors[0], emoji: '🌅' },     // Uyanırım
+        { word: 'أتوضأ', color: colors[1], emoji: '💦' },      // Abdest alırım
+        { word: 'أصلّي', color: colors[2], emoji: '🕌' },       // Namaz kılarım
+        { word: 'آكل', color: colors[3], emoji: '🍽️' },        // Yerim
+        { word: 'أشرب', color: colors[4], emoji: '🥤' },       // İçerim
+        { word: 'أنام', color: colors[5], emoji: '🛌' },        // Uyurum
     ],
-    // Seviye 2: Manav Ürünleri (Sebze ve Meyveler)
+    // Seviye 2: Günlük Rutin Nesneleri ve Kişiler
     [
-        { word: 'تفّاح', color: colors[0], emoji: '🍎' },    // Elma
-        { word: 'موز', color: colors[1], emoji: '🍌' },     // Muz
-        { word: 'طماطم', color: colors[2], emoji: '🍅' },    // Domates
-        { word: 'بصل', color: colors[3], emoji: '🧅' },     // Soğan
-        { word: 'بطاطا', color: colors[4], emoji: '🥔' },    // Patates
-        { word: 'كرز', color: colors[5], emoji: '🍒' }      // Kiraz
+        { word: 'فطور', color: colors[0], emoji: '🍳' },       // Kahvaltı
+        { word: 'مدرسة', color: colors[1], emoji: '🏫' },      // Okul
+        { word: 'بيت', color: colors[2], emoji: '🏠' },        // Ev
+        { word: 'أمّي', color: colors[3], emoji: '👩' },         // Annem
+        { word: 'أسنان', color: colors[4], emoji: '🦷' },      // Dişler
+        { word: 'ملابس', color: colors[5], emoji: '👕' }       // Elbiseler
     ],
-    // Seviye 3: Birimler ve Alışveriş Sıfatları
+    // Seviye 3: Zaman Dilimleri ve Günler
     [
-        { word: 'كيلو', color: colors[0], emoji: '⚖️' },    // Kilo
-        { word: 'علبة', color: colors[1], emoji: '📦' },    // Kutu / Paket
-        { word: 'ليرة', color: colors[2], emoji: '₺' },    // Lira
-        { word: 'بائع', color: colors[3], emoji: '👨‍💼' },   // Satıcı
-        { word: 'طازج', color: colors[4], emoji: '✨' },    // Taze
-        { word: 'رخيص', color: colors[5], emoji: '🏷️' }     // Ucuz
+        { word: 'ظهر', color: colors[1], emoji: '🌞' },        // Öğle
+        { word: 'مساء', color: colors[2], emoji: '🌙' },       // Akşam
+        { word: 'ليل', color: colors[3], emoji: '🌌' },        // Gece
+        { word: 'صباح', color: colors[0], emoji: '☀️' },       // Sabah
+        { word: 'يوم', color: colors[4], emoji: '📅' },        // Gün
+        { word: 'ساعة', color: colors[5], emoji: '⏰' }        // Saat
     ]
 ];
 
 // MOBİL SEVİYELER (4'lü Setler)
 const mobileLevels = [
-    // Mobil 1: Temel İhtiyaçlar
+    // Mobil 1: Sabah Rutini
     [
-        { word: 'خبز', color: colors[0], emoji: '🍞' },
-        { word: 'حليب', color: colors[1], emoji: '🥛' },
-        { word: 'سكر', color: colors[2], emoji: '🍬' },     // Şeker
-        { word: 'بيض', color: colors[3], emoji: '🥚' }      // Yumurta
+        { word: 'أستيقظ', color: colors[0], emoji: '🌅' },
+        { word: 'فجر', color: colors[1], emoji: '✨' },      // Sabah namazı vakti
+        { word: 'مبكر', color: colors[2], emoji: '🕒' },      // Erken
+        { word: 'ألبس', color: colors[3], emoji: '👔' }       // Giyinirim
     ],
-    // Mobil 2: Meyveler
+    // Mobil 2: Kahvaltı Sofrası
     [
-        { word: 'موز', color: colors[0], emoji: '🍌' },
-        { word: 'تفّاح', color: colors[1], emoji: '🍎' },
-        { word: 'مشمش', color: colors[2], emoji: '🍑' },    // Kayısı
-        { word: 'عنب', color: colors[3], emoji: '🍇' }      // Üzüm
+        { word: 'جبن', color: colors[0], emoji: '🧀' },       // Peynir
+        { word: 'زيتون', color: colors[1], emoji: '🫒' },     // Zeytin
+        { word: 'عسل', color: colors[2], emoji: '🍯' },       // Bal
+        { word: 'حليب', color: colors[3], emoji: '🥛' }       // Süt
     ],
-    // Mobil 3: Sebzeler
+    // Mobil 3: Yemek ve İçecek
     [
-        { word: 'بصل', color: colors[4], emoji: '🧅' },
-        { word: 'جزر', color: colors[5], emoji: '🥕' },     // Havuç
-        { word: 'خيار', color: colors[6], emoji: '🥒' },    // Salatalık
-        { word: 'فلفل', color: colors[7], emoji: '🫑' }     // Biber
+        { word: 'لحم', color: colors[4], emoji: '🥩' },       // Et
+        { word: 'سمك', color: colors[5], emoji: '🐟' },       // Balık
+        { word: 'قهوة', color: colors[6], emoji: '☕' },      // Kahve
+        { word: 'شاي', color: colors[7], emoji: '🍵' }        // Çay
     ],
-    // Mobil 4: Fiyat ve Miktar Sıfatları
+    // Mobil 4: Haftanın Günleri (Bazıları)
     [
-        { word: 'غالٍ', color: colors[0], emoji: '💰' },     // Pahalı
-        { word: 'رخيص', color: colors[1], emoji: '🏷️' },    // Ucuz
-        { word: 'كبير', color: colors[2], emoji: '📦' },    // Büyük
-        { word: 'صغير', color: colors[3], emoji: '🛍️' }     // Küçük
+        { word: 'الاثنين', color: colors[0], emoji: '1️⃣' },    // Pazartesi
+        { word: 'الجمعة', color: colors[1], emoji: '🕌' },    // Cuma
+        { word: 'السبت', color: colors[2], emoji: '🎡' },     // Cumartesi
+        { word: 'الأحد', color: colors[3], emoji: '🌳' }      // Pazar
     ]
 ];
 

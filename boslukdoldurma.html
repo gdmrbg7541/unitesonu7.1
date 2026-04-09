@@ -789,146 +789,145 @@
         ];
 
 const activitiesData = [
-    // 1. İhtiyaç Belirtme
+    // 1. Rutin (Sabah)
     { 
-        pre: "أَنا", 
-        post: "إِلى كيلو سُكَّر", 
-        a: "بِحاجَة", 
-        hint: "İhtiyaç duymak (Bir kilo şekere ... var)" 
-    },
-    // 2. Birden Fazla Doğru Cevaplı (Eşyalar)
-    { 
-        pre: "أَنا بِحاجَة إِلى عُلْبَة", 
+        pre: "أَسْتَيْقِظُ في الصَّباح", 
         post: "", 
-        a: ["مِلْح", "شاي", "مَكَرونَة", "عَسَل"], 
-        hint: "Eşya/Gıda (Tuz, Çay, Makarna veya Bal)" 
+        a: ["مُبَكِّرًا", "مبكرا"], 
+        hint: "Sabah uyanırım... (Erken)" 
     },
-    // 3. Sıfat (Taze)
-    { 
-        pre: "أُريدُ خُبْزًا", 
-        post: "", 
-        a: ["طازَجًا", "طازجا"], 
-        hint: "Sıfat (Taze)" 
+    // 2. İbadet
+   { 
+        pre: "أَتَوَضَّأُ، ثُمَّ", 
+        post: "الفَجْر", 
+        a: ["أُصَلّي", "اصلي"], 
+        hint: "Abdest alırım, sonra sabah namazını... (Namaz kılarım)" 
     },
-    // 4. Muzari Fiil (Gitmek)
+    // 3. Okul Yönelme
     { 
-        pre: "سَيَذْهَبُ عُمَر", 
+        pre: "أَذْهَبُ", 
         post: "المَدْرَسَة", 
         a: ["إِلى", "الى"], 
-        hint: "Yönelme edatı (-e/-a okula)" 
+        hint: "OkulA gidiyorum (Yönelme edatı)" 
     },
-    // 5.Tekil Zamirlerin Tamamı (5 Farklı Şahıs Zamiri de Doğru Kabul Edilir)
+    // 4. Kahvaltı İçeriği (İçecek)
     { 
         pre: "", 
-        post: "بِحاجَة إِلى كيلو سُكَّر", 
-        a: ["أَنا", "أَنْتَ", "أَنْتِ", "هُو", "هِي", "انا", "انت"], 
-        hint: "Herhangi bir tekil şahıs zamiri (Ben, Sen veya O)" 
+        post: "الحَليب في الفَطور", 
+        a: ["شَرِبْتُ","أَشْرَبُ", "اشرب"], 
+        hint: "Kahvaltıda süt... (İçerim/İçiyorum)" 
     },
-    // 6. Şahıs Zamiri (O - Kadın)
+    // 5. Günlük Zaman (Öğle)
+     { 
+        pre: "", 
+        post: "دُروسي مَساءً", 
+        a: ["أَدْرُسُ", "ادرس"], 
+        hint: "Akşamleyin derslerimi... (Çalışırım/Ders yaparım)" 
+    },
+    // 6. Kişisel Bakım (Diş)
+    { 
+        pre: "أُنَظِّفُ", 
+        post: "بِالفُرْشاة", 
+        a: ["أَسْناني", "اسناني"], 
+        hint: "Fırça ile temizlediğim yer (Dişlerim)" 
+    },
+    // 7. Yemek (Öğle Menüsü)
+     { 
+        pre: "", 
+        post: "اللَّحْم وَالأُرْز في الغَداء", 
+        a: ["أَكَلْتُ","اكلت","تَناوَلْتُ","تناولت","آكُلُ","اكل","أَتَناوَلُ","اتناول"], 
+        hint: "Öğle yemeğinde et ve pirinç (pilav)... (Yiyorum/Tüketiyorum)" 
+    },
+    // 8. İçecek (Keyif)
+{ 
+        pre: "", 
+        post: "يَدَيّ قَبْل الطَّعام وَبَعْدَه", 
+        a: ["اغسل","أَغْسِلُ"], 
+        hint: "Yemekten önce ve sonra ellerimi... (Yıkıyorum/Yıkarım)" 
+    },
+    // 9. Günlük Zaman (Gece)
     { 
         pre: "", 
-        post: "تُريدُ المِلْح", 
-        a: ["أَنْتَ", "هِي", "انت"], 
-        hint: "Zamir (Sen -E- veya O -K-)" 
+        post: "تَأْكُلُ في العَشاء؟", 
+        a: ["ماذا"], 
+        hint: "Akşam yemeğinde NE yersin? (Soru edatı)" 
     },
-    // 7. Soru Kalıbı (Fiyat)
+    // 10. Saat (Tam saat)
     { 
-        pre: "", 
-        post: "البَصَل؟", 
-        a: "بِكَم", 
-        hint: "Fiyat sorusu (Kaç para?)" 
+        pre: "أَذْهَبُ إِلى المَدْرَسَة في", 
+        post: "الثّامِنَة", 
+        a: ["السّاعَة"], 
+        hint: "... sekizde okula giderim (Saat)" 
     },
-    // 8. Soru Kalıbı (Miktar)
+    // 11. Karşılıklı Gün İlişkisi
     { 
-        pre: "", 
-        post: "كيلوغْرامًا تُريدُ؟", 
-        a: "كَم", 
-        hint: "Soru edatı (Kaç / Ne kadar?)" 
-    },
-    // 9. Karşılaştırma (Daha büyük)
-    { 
-        pre: "بِكَم البَصَل؟ \n بِـ", 
-        post: "ليرات (٤).", 
-        a: ["أَرْبَع", "اربع"], 
-        hint: "Sayıyı harflerle yazınız" 
-    },
-    // 10. Karşılaştırma (Daha hafif)
-    { 
-        pre: "بِكَم البَطاطا؟ \n بِـ", 
-        post: "ليرات (٥).", 
-        a: ["خَمْس", "خمس"], 
-        hint: "Sayıyı harflerle yazınız" 
-    },
-    // 11. Karşılaştırma (Daha pahalı)
-    { 
-        pre: "المِشْمِش", 
-        post: "مِن البَصَل", 
-        a: ["أَرْخَص", "ارخص","أَغْلى", "اغلى"], 
-        hint: "Sıfat (Daha pahalı)" 
-    },
-    // 12. Karşılaştırma (Daha ucuz)
-    { 
-        pre: "البَصَل", 
-        post: "مِن المِشْمِش", 
-        a: ["أَغْلى","اغلى","أَرْخَص","ارخص"], 
-
-        hint: "Sıfat (Daha ucuz)" 
-    },
-    // 13. Karşılaştırma (Daha küçük)
-    { 
-        pre: "الكَرَزَة", 
-        post: "مِن البُرْتُقالَة", 
-        a: ["أَرْخَص", "ارخص","أَغْلى", "اغلى","أَصْغَر", "اصغر"], 
-        hint: "Sıfat (Daha küçük)" 
-    },
-    // 14. Sebze İsimleri
-    { 
-        pre: "بِكَم الفاصولْيا؟ \n بِـ", 
-        post: "ليرات (٩)", 
-        a: ["تِسْع", "تسع"], 
-        hint: "Sayıyı harflerle yazınız" 
-    },
-    // 15. Meyve İsimleri
-    { 
-        pre: "بِكَم التُّفّاح؟ \n بِـ", 
-        post: "ليرات (٧)", 
-        a: ["سَبْع", "سبع"], 
-        hint: "Sayıyı harflerle yazınız" 
-    },
-    // 16. Alışveriş Kalıbı
-    { 
-        pre: "أَهْلًا وَسَهْلًا، أَيّ", 
-        post: "؟", 
-        a: ["خِدْمَة", "خدمة"], 
-        hint: "Nasıl yardımcı olabilirim? (Hangi ...?)" 
-    },
-    // 17. Olumsuzluk / Yeterlilik
-    { 
-        pre: "لا، شُكْرًا جَزيلًا. هَذا", 
+        pre: "يَوْم الاِثْنَيْن يَأْتي بَعْد يَوْم", 
         post: "", 
-        a: "كافٍ", 
-        hint: "Bu yeterli" 
+        a: ["الأَحَد"], 
+        hint: "Pazartesi hangi günden sonra gelir? (Pazar)" 
     },
-    // 18. Para Birimi
+    // 12. Cuma Günü Sıralaması
     { 
-        pre: "بِكَم الطَّماطِم؟ \n بِـ", 
-        post: "ليرات (٣)", 
-        a: ["ثَلاث", "ثلاث"], 
-        hint: "Sayıyı harflerle yazınız" 
+        pre: "يَوْم الجُمُعَة يَأْتي بَعْد يَوْم", 
+        post: "", 
+        a: ["الخَميس"], 
+        hint: "Cuma hangi günden sonra gelir? (Perşembe)" 
     },
-    // 19. Varlık/Yokluk Sorusu
+    // 13. Namaz Vakti (Güneş Doğmadan)
     { 
-        pre: "هَلْ", 
-        post: "مَوْز وَتُفّاح؟", 
-        a: ["يوجَدُ", "يوجد"], 
-        hint: "Var mı? / Bulunur mu?" 
+        pre: "أُصَلّي الفَجْر قَبْل شُروق", 
+        post: "", 
+        a: ["الشَّمْس"], 
+        hint: "Güneş doğmadan önce (Güneş)" 
     },
-    // 20. Karşılaştırma (Pahalı)
+    // 14. Akşam Yemeği (Balık)
     { 
-        pre: "بِكَم العِنَب؟ \n بِـ", 
-        post: "ليرات (٨)", 
-        a: ["ثَمان", "ثمان"], 
-        hint: "Sayıyı harflerle yazınız" 
+        pre: "أَتَناوَلُ السَّمَك في", 
+        post: "", 
+        a: ["الغَداء", "العَشاء"], 
+        hint: "Balık yediğim öğün (Öğle veya Akşam yemeği)" 
+    },
+    // 15. Hijyen (El yıkama)
+    { 
+        pre: "أَغْسِلُ", 
+        post: "قَبْل الطَّعام", 
+        a: ["يَدَيّ"], 
+        hint: "Yemekten önce yıkadığım yer (Ellerim)" 
+    },
+    // 16. Akşam Namazı (Güneş Batışı)
+    { 
+        pre: "أُصَلّي المَغْرِب بَعْد غُروب", 
+        post: "", 
+        a: ["الشَّمْس"], 
+        hint: "Akşam namazı neyin batışından sonradır?" 
+    },
+    // 17. Sayısal Saat
+     { 
+        pre: "أَنامُ", 
+        post: "السّاعَة الحادِيَة عَشْرَة لَيْلًا", 
+        a: ["في"], 
+        hint: "Saat on birDE uyurum (-de/-da eki)" 
+    },
+    // 18. Gün Sıralaması (Salı)
+    { 
+        pre: "يَوْم الثُّلاثاء يَأْتي قَبْل يَوْم", 
+        post: "", 
+        a: ["الأَرْبِعاء","الارْبِعاء"], 
+        hint: "Salı hangi günden öncedir? (Çarşamba)" 
+    },
+    // 19. Kahvaltı (Bal-Tereyağı)
+    { 
+        pre: "آكُلُ العَسَل وَالزُّبْدَة في", 
+        post: "", 
+        a: ["الفَطور"], 
+        hint: "Bal ve tereyağı yenen öğün" 
+    },
+    // 20. Yardım Etme
+    { 
+        pre: "أُساعِدُ أُمّي في", 
+        post: "", 
+        a: ["البَيْت"], 
+        hint: "Anneme nerede yardım ederim? (Evde)" 
     }
 ];
         // --- Gerekli Elementler ---
@@ -1309,7 +1308,7 @@ const activitiesData = [
                 // 🔥 YAMA BAŞLANGICI: Geri bildirimde gizlenecek basitleştirilmiş kelimeler
                 // Bu kelimeler, asıl hemzeli/elifli formları kabul etmek için eklenmiş
                 // klavye dostu, basitleştirilmiş versiyonlardır ve geri bildirimde gösterilmeyecektir.
-                const variantsToExclude = ["اَسْمَعُ","اَرْبَعَة","اجلس","اَصْفَر", "اكتب", " اَحْمَر", "عَشَر", " اَزْرَق","اِلى","امام"];
+               const variantsToExclude = ["اصلي", "الاربعاء", "احد", "الاحد", "اغسل", "اسناني", "عشرة", "اكلت","الى", "تناولت","اتناول", "ادرس", "اشرب", "اكل"];
                 
                 // Cevap listesini filtrele: Sadece ana (canonical) kelimeleri bırakır.
                 const canonicalAnswers = Array.isArray(correctAnswer) 
