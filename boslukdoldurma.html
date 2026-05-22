@@ -56,7 +56,6 @@
             font-weight: 400;
         }
 
-        /* --- Ana Etkinlik Alanı (MASAÜSTÜ BOYUTLARI KORUNDU) --- */
         /* --- Ana Etkinlik Alanı (Masaüstü İyileştirmesi) --- */
 .activity-container {
     aspect-ratio: 16 / 9;
@@ -78,38 +77,37 @@
     margin: auto;
 }
 
-/* --- Cevap Kutusu (Yatayda Geniş, Soruyla Uyumlu) --- */
 .answer-input {
-    font-family: var(--font-arabic);
-    border: 2px solid var(--accent-color);
-    border-radius: 8px;
-    padding: 10px 20px;
-    
-    /* GÜNCELLEME: Yatayda daha geniş yapıldı */
-    width: 400px; 
-    min-width: 250px;
-    max-width: 80%;
-    
-    height: 80px; /* Yüksekliği biraz azaltıldı */
-    line-height: 1.2;
-    font-size: 0.8em; /* Soru metninden biraz daha küçük olması için */
-    
-    background: #f8f9fa;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 15px;
-    font-weight: 400;
-}
+            font-family: var(--font-arabic);
+            border: 2px solid var(--accent-color);
+            border-radius: 8px;
+            padding: 5px 15px;
+            width: clamp(180px, 25vw, 300px);
+            height: clamp(70px, 9vh, 90px);
+            background: #f8f9fa;
+            display: inline-flex; 
+            align-items: center;
+            justify-content: center;
+            vertical-align: middle; 
+            margin: 5px 10px;
+            font-weight: 400;
+            font-size: 0.9em;
+        }
 
 /* --- Soru Metni (Boyutu Dengelendi) --- */
 .question-text {
     /* GÜNCELLEME: clamp değerleri küçültüldü */
-    font-size: clamp(1.5rem, 3.5vw, 4rem); 
+    /*font-size: clamp(1.5rem, 3.5vw, 4rem); 
+    /* MASAÜSTÜ boyutu korundu */
+    font-size: clamp(2rem, 5vw, 5.5rem);
     font-weight: 400;
     color: #212529;
     margin-bottom: 20px;
-    line-height: 1.4;
+    
+    /* GÜNCELLEMELER BURADA */
+    display: block; /* Flex yerine block yaptık ki normal cümle gibi aksın */
+    line-height: 1.6; /* Satır arası ferahlatıldı */
+    white-space: pre-line; /* \n karakterlerini algılayıp alt satıra geçer */
     text-align: center;
 }
 
@@ -271,29 +269,7 @@
             white-space: normal; 
             text-align: center;
         }
-      .answer-input {
-        font-family: var(--font-arabic);
-        border: 2px solid var(--accent-color);
-        border-radius: 8px;
-        padding: 15px 15px; 
-        width: 375px;
-        max-width: 80%;
-        text-align: center;
-        margin: 10 15px;
-        
-        /* 🔥 SABİT YÜKSEKLİK VE LINE-HEIGHT */
-        height: 110px; 
-        line-height: 1.6; 
-        
-        background: #f8f9fa;
-        direction: rtl; 
-        color: #333;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.9em; 
-        font-weight: 400;
-    }
+      
         
         /* --- Klavye Stilleri --- */
         .keyboard-container {
@@ -785,7 +761,8 @@
         const keyRows = [
             ["د","ج","ح","خ","ه","ع","غ","ف","ق","ث","ص","ض"],
             ["ط","ك","م","ن","ت","ا","ل","ب","ي","س","ش","ذ"],
-            ["Backspace", "ظ","ز","و","ة","ى","ر","ؤ","ء","ئ"] 
+            ["Backspace", "ظ","ز","و","ة","ى","ر","ؤ","ء","ئ"],
+            ["Space"] // YENİ: Boşluk tuşu satırı buraya eklendi
         ];
 
 const activitiesData = [
@@ -793,7 +770,7 @@ const activitiesData = [
     { 
         pre: "أَسْتَيْقِظُ في الصَّباح", 
         post: "", 
-        a: ["مُبَكِّرًا", "مبكرا"], 
+        a: ["مُبَكِّرًا"], 
         hint: "Sabah uyanırım... (Erken)" 
     },
     // 2. İbadet
@@ -1123,7 +1100,7 @@ const activitiesData = [
             activityArea.appendChild(container);
         }
 
-        // --- KLAVYE OLUŞTURUCU (Uzun Basma Özellikli) ---
+        // --- KLAVYE OLUŞTURUCU ---
         function buildKeyboard() {
             const keyboardContainer = document.createElement('div');
             keyboardContainer.className = 'keyboard-container';
@@ -1135,7 +1112,14 @@ const activitiesData = [
                 row.forEach(keyText => {
                     const keyContainer = document.createElement('div');
                     keyContainer.className = 'key-container';
-                    if (keyText === 'Backspace') keyContainer.style.maxWidth = '110px';
+                    
+                    // Boşluk ve Backspace tuşu genişlik ayarları
+                    if (keyText === 'Backspace') {
+                        keyContainer.style.maxWidth = '110px';
+                    } else if (keyText === 'Space') {
+                        keyContainer.style.maxWidth = '300px'; 
+                        keyContainer.style.flexGrow = '4';
+                    }
 
                     const key = document.createElement('div');
                     key.className = 'key';
@@ -1146,6 +1130,10 @@ const activitiesData = [
                         key.innerHTML = '⌫'; 
                         key.style.backgroundColor = backspaceBg;
                         key.style.boxShadow = `0 4px ${backspaceShadow}`;
+                    } else if (keyText === 'Space') {
+                        key.innerHTML = '␣'; // Boşluk tuşu simgesi
+                        key.style.backgroundColor = '#e0e0e0';
+                        key.style.boxShadow = `0 4px ${getDarkerColor('#e0e0e0')}`;
                     } else {
                         const keyChar = keyText[0]; 
                         const color = colorMap[keyChar] || defaultColor;
@@ -1158,9 +1146,9 @@ const activitiesData = [
 
                     const startPress = (e) => {
                         e.preventDefault(); 
+                        closeAllPopups(); // YENİ: Başka tuşa dokunulduğunda açık pop-up'ı kapat
                         isLongPress = false;
                         
-                        // Sadece 'ا' ve 'ي' için uzun basma pop-up'ını göster
                         if (longPressData[keyText]) {
                             pressTimer = setTimeout(() => {
                                 isLongPress = true;
@@ -1173,7 +1161,6 @@ const activitiesData = [
                     const cancelPress = (e) => {
                         clearTimeout(pressTimer);
                         if (!isLongPress && e.type !== 'mouseleave') {
-                            // Eğer bir pop-up açıksa, tuşa normal basış kabul edilmez.
                             if (!document.querySelector('.long-press-popup.show')) {
                                 handleKeyInput(keyText);
                             }
@@ -1182,6 +1169,8 @@ const activitiesData = [
                     
                     if (keyText === 'Backspace') {
                         key.onclick = () => handleKeyInput('Backspace');
+                    } else if (keyText === 'Space') {
+                        key.onclick = () => handleKeyInput(' '); // YENİ: Boşluk karakteri gönder
                     } else {
                         key.addEventListener('mousedown', startPress);
                         key.addEventListener('touchstart', startPress, {passive: false});
