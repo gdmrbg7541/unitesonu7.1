@@ -16,7 +16,6 @@
             font-style: normal;
         }
 
-        /* --- YENİ TASARIM RENK VE DEĞİŞKENLERİ --- */
         :root {
             --primary-bg: #e0c3fc;
             --secondary-bg: #8ec5fc;
@@ -35,7 +34,6 @@
             --radius-pill: 50px;
         }
 
-        /* Arka Plan ve Temel Ayarlar */
         body {
             font-family: var(--font-arabic);
             background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
@@ -48,9 +46,9 @@
             overflow: hidden;
             font-weight: 400;
             color: var(--text-dark);
+            overscroll-behavior: none; /* Dokunmatik ekranlarda sayfayı yenilemeyi/esnetmeyi engeller */
         }
 
-        /* Ana Konteyner (Cam Efektli Modern Panel) */
         .activity-container {
             position: relative;
             background: var(--surface-color);
@@ -68,7 +66,6 @@
             max-width: calc(98vh * 16 / 9);
         }
         
-        /* Header Alanı */
         .header {
             padding: 15px 30px;
             background: rgba(255, 255, 255, 0.5);
@@ -114,7 +111,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Butonlar */
         .back-button-container {
             display: flex;
             gap: 12px;
@@ -153,7 +149,6 @@
         body.fullscreen #fullscreen-btn .icon-open { display: none; }
         body.fullscreen #fullscreen-btn .icon-close { display: block; }
 
-        /* Asıl Etkinlik Alanı */
         .activity-area {
             flex-grow: 1;
             padding: 20px 30px;
@@ -170,7 +165,6 @@
             gap: 25px;
         }
 
-        /* Sol Taraf: Hedef Kutular */
         .drop-zones-container {
             display: grid;
             grid-template-columns: 1fr 1fr; 
@@ -180,7 +174,6 @@
             padding-right: 10px;
         }
 
-        /* Özel Kaydırma Çubuğu */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 10px; }
@@ -227,7 +220,6 @@
             width: calc(50% - 10px); 
         }
         
-        /* Sağ Taraf: Kelime Bankası */
         .word-bank-container {
             flex: 0 0 28%; 
             height: 100%; 
@@ -243,7 +235,6 @@
             box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
         }
 
-        /* Sürüklenebilir Kelimeler */
         .word-item {
             padding: 8px 10px;
             color: white;
@@ -252,15 +243,13 @@
             border-radius: var(--radius-pill); 
             cursor: grab;
             user-select: none;
+            touch-action: none; /* Dokunmatik hareketlerin sayfayı kaydırmasını engeller */
             transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
             box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-            
-             width: 75%;
-           margin: 0 auto;     /* Ortalamak için bunu ekleyin */
-           height: auto;
+            width: 75%;
+            margin: 0 auto;     
+            height: auto;
             min-height: 42px;
-
-           
             display: flex;
             justify-content: center;
             align-items: center;
@@ -270,7 +259,6 @@
             overflow: hidden;
         }
 
-        /* Hafif parlama efekti */
         .word-item::after {
             content: '';
             position: absolute;
@@ -295,12 +283,12 @@
 
         .word-item.gliding { pointer-events: none; }
         
-        /* Kontrol Sonrası */
         .word-item.correct {
             cursor: default;             
             box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important; 
             transform: none !important;
             filter: none !important;     
+            touch-action: auto; 
         }
         
         .word-item.incorrect {
@@ -308,7 +296,6 @@
             animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
         }
 
-        /* Başlangıç Ekranı */
         #start-screen {
             position: fixed;
             inset: 0;
@@ -351,7 +338,6 @@
             box-shadow: 0 15px 35px rgba(108, 92, 231, 0.6);
         }
 
-        /* Geri Bildirim Ekranı (Feedback) */
         .feedback-overlay {
             position: absolute;
             inset: 0;
@@ -424,7 +410,6 @@
             box-shadow: 0 15px 30px rgba(0, 184, 148, 0.6);
         }
 
-        /* Animasyonlar */
         .returning {
             z-index: 9999 !important; 
             pointer-events: none;      
@@ -445,7 +430,6 @@
             transform: scale(0.8);
         }
 
-        /* Fullscreen Ayarları */
         body.fullscreen .activity-container {
             position: fixed !important; 
             top: 0 !important; left: 0 !important;
@@ -457,7 +441,6 @@
         }
         body.fullscreen { background: var(--primary-bg) !important; }
 
-        /* Yönlendirme Uyarısı (Telefonu Çevir) */
         #orientation-warning {
             position: fixed; inset: 0;
             background: #2d3436; color: white;
@@ -474,13 +457,11 @@
         @keyframes rotate-phone { 0% { transform: rotate(0deg); } 40%, 100% { transform: rotate(90deg); } }
         #orientation-warning p { font-size: 2.5rem; margin: 0; }
 
-        /* Mobil Cihazlar Dikey (Portrait) */
         @media screen and (orientation: portrait) and (max-width: 900px) {
             #orientation-warning { display: flex; }
             .activity-container, #start-screen { display: none !important; }
         }
 
-        /* Mobil Cihazlar Yatay (Landscape) Uyumları */
         @media screen and (orientation: landscape) and (max-height: 600px) {
             html { font-size: 12px; }
             .activity-container { width: 100vw; height: 100vh; max-width: none; max-height: none; border-radius: 0; }
@@ -498,6 +479,7 @@
             .word-item { min-height: 35px; font-size: 1.6rem; padding: 4px; }
         }
     </style>
+    <!-- Polyfill'i alternatif durumlar için yine de tutuyoruz, native eventler öncelikli çalışacaktır -->
     <script src="https://cdn.jsdelivr.net/npm/drag-drop-touch@1.3.1/DragDropTouch.js"></script>
 </head>
 <body>
@@ -548,11 +530,10 @@
     </div>
 
 <script>
-    // --- OYUN MANTIĞI VE FONKSİYONLAR (DEĞİŞTİRİLMEDİ) ---
     const colorPalette = [
         '#ff7675', '#74b9ff', '#55efc4', '#fdcb6e', '#a29bfe', '#fab1a0', '#00cec9',
         '#e17055', '#0984e3', '#6c5ce7', '#00b894', '#e84393', '#d63031', '#feca57'
-    ]; // Renkler yeni tasarıma uygun olarak pastel/canlı tonlarla güncellendi
+    ];
 
     const activityDataBank = [
         {
@@ -700,11 +681,73 @@
         const zones = document.querySelectorAll('.category-drop-zone, .word-bank-container');
 
         draggables.forEach(d => {
+            // --- 1. MOUSE (MASAÜSTÜ) İÇİN STANDART D&D ---
             d.addEventListener('dragstart', e => {
                 e.dataTransfer.setData('text/plain', d.id);
                 d.classList.add('mouse-dragging');
             });
             d.addEventListener('dragend', () => d.classList.remove('mouse-dragging'));
+
+            // --- 2. DOKUNMATİK EKRANLAR (TAHTA/TELEFON) İÇİN NATIVE TOUCH EVENTS ---
+            let startX, startY;
+
+            d.addEventListener('touchstart', e => {
+                if (d.classList.contains('correct') || d.classList.contains('incorrect-shake')) return;
+                
+                const touch = e.touches[0];
+                startX = touch.clientX;
+                startY = touch.clientY;
+                
+                d.classList.add('mouse-dragging');
+                d.style.zIndex = '1000';
+                d.style.transition = 'none'; // Sürüklerken animasyon gecikmesini kapat
+            }, { passive: false });
+
+            d.addEventListener('touchmove', e => {
+                if (!d.classList.contains('mouse-dragging')) return;
+                e.preventDefault(); // Sürüklerken sayfa kaymasını kesinlikle engelle
+                
+                const touch = e.touches[0];
+                const moveX = touch.clientX - startX;
+                const moveY = touch.clientY - startY;
+                
+                d.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            }, { passive: false });
+
+            d.addEventListener('touchend', e => {
+                if (!d.classList.contains('mouse-dragging')) return;
+                
+                d.classList.remove('mouse-dragging');
+                d.style.transition = ''; 
+                d.style.zIndex = '';
+                
+                const touch = e.changedTouches[0];
+                
+                // Parmağın bırakıldığı noktadaki kutuyu bulmak için elementi anlık gizliyoruz
+                d.style.visibility = 'hidden';
+                const elemBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+                d.style.visibility = 'visible';
+                
+                // Yeni yerine geçeceği veya hata animasyonu yapacağı için transformu sıfırla
+                d.style.transform = ''; 
+
+                if (elemBelow) {
+                    const targetZone = elemBelow.closest('.category-drop-zone');
+                    if (targetZone) {
+                        targetZone.appendChild(d); // Kutunun içine bırak
+                        
+                        if (targetZone.dataset.category === d.dataset.wordCat) {
+                            d.classList.add('correct');
+                            d.draggable = false;
+                            playSound('correct');
+                            checkWin();
+                        } else {
+                            handleMistake(d); // Hata sistemi aynı şekilde çalışır
+                        }
+                        return;
+                    }
+                }
+            });
         });
 
         zones.forEach(z => {
@@ -713,6 +756,7 @@
                 e.preventDefault();
                 const id = e.dataTransfer.getData('text/plain');
                 const el = document.getElementById(id);
+                if (!el) return;
                 const targetZone = e.target.closest('.category-drop-zone');
 
                 if (targetZone) {
