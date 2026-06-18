@@ -769,141 +769,161 @@ const activitiesData = [
     // 1. Rutin (Sabah)
     { 
         pre: "أَسْتَيْقِظُ في الصَّباح", 
-        post: "", 
+        post: " ( مُبَكِّرًا / لَيْلًا )", 
         a: ["مُبَكِّرًا"], 
+        choices: ["مُبَكِّرًا", "لَيْلًا"], // Erken / Geceleyin
         hint: "Sabah uyanırım... (Erken)" 
     },
     // 2. İbadet
    { 
         pre: "أَتَوَضَّأُ، ثُمَّ", 
-        post: "الفَجْر", 
+        post: "الفَجْر ( أُصَلّي / أَنامُ )", 
         a: ["أُصَلّي", "اصلي"], 
+        choices: ["أُصَلّي", "أَنامُ"], // Kılarım / Uyurum
         hint: "Abdest alırım, sonra sabah namazını... (Namaz kılarım)" 
     },
     // 3. Okul Yönelme
     { 
         pre: "أَذْهَبُ", 
-        post: "المَدْرَسَة", 
+        post: "المَدْرَسَة ( إِلى / في )", 
         a: ["إِلى", "الى"], 
+        choices: ["إِلى", "في"], // -e doğru / -de, -da
         hint: "OkulA gidiyorum (Yönelme edatı)" 
     },
     // 4. Kahvaltı İçeriği (İçecek)
     { 
         pre: "", 
-        post: "الحَليب في الفَطور", 
+        post: "الحَليب في الفَطور ( أَشْرَبُ / آكُلُ )", 
         a: ["شَرِبْتُ","أَشْرَبُ", "اشرب"], 
+        choices: ["أَشْرَبُ", "آكُلُ"], // İçerim / Yiyorum
         hint: "Kahvaltıda süt... (İçerim/İçiyorum)" 
     },
     // 5. Günlük Zaman (Öğle)
      { 
         pre: "", 
-        post: "دُروسي مَساءً", 
+        post: "دُروسي مَساءً ( أَدْرُسُ / أَلْبَسُ )", 
         a: ["أَدْرُسُ", "ادرس"], 
+        choices: ["أَدْرُسُ", "أَلْبَسُ"], // Çalışırım / Giyinirim
         hint: "Akşamleyin derslerimi... (Çalışırım/Ders yaparım)" 
     },
     // 6. Kişisel Bakım (Diş)
     { 
         pre: "أُنَظِّفُ", 
-        post: "بِالفُرْشاة", 
+        post: "بِالفُرْشاة ( أَسْناني / مَلابِسي )", 
         a: ["أَسْناني", "اسناني"], 
+        choices: ["أَسْناني", "مَلابِسي"], // Dişlerimi / Kıyafetlerimi
         hint: "Fırça ile temizlediğim yer (Dişlerim)" 
     },
     // 7. Yemek (Öğle Menüsü)
      { 
         pre: "", 
-        post: "اللَّحْم وَالأُرْز في الغَداء", 
+        post: "اللَّحْم وَالأُرْز في الغَداء ( أَتَناوَلُ / أَشْرَبُ )", 
         a: ["أَكَلْتُ","اكلت","تَناوَلْتُ","تناولت","آكُلُ","اكل","أَتَناوَلُ","اتناول"], 
+        choices: ["أَتَناوَلُ", "أَشْرَبُ"], // Tüketirim-Yiyorum / İçerim
         hint: "Öğle yemeğinde et ve pirinç (pilav)... (Yiyorum/Tüketiyorum)" 
     },
-    // 8. İçecek (Keyif)
-{ 
-        pre: "", 
-        post: "يَدَيّ قَبْل الطَّعام وَبَعْدَه", 
-        a: ["غَسَلْتُ","اغسل","أَغْسِلُ"], 
-        hint: "Yemekten önce ve sonra ellerimi... (Yıkıyorum/Yıkarım)" 
-    },
-    // 9. Günlük Zaman (Gece)
+    // 8. İçecek (Keyif - Hijyen)
     { 
         pre: "", 
-        post: "تَأْكُلُ في العَشاء؟", 
+        post: "يَدَيّ قَبْل الطَّعام وَبَعْدَه ( أَغْسِلُ / آكُلُ )", 
+        a: ["غَسَلْتُ","اغسل","أَغْسِلُ"], 
+        choices: ["أَغْسِلُ", "آكُلُ"], // Yıkarım / Yiyorum
+        hint: "Yemekten önce ve sonra ellerimi... (Yıkıyorum/Yıkarım)" 
+    },
+    // 9. Günlük Zaman (Gece Soru Edatı)
+    { 
+        pre: "", 
+        post: "تَأْكُلُ في العَشاء؟ ( ماذا / مَتى )", 
         a: ["ماذا"], 
+        choices: ["ماذا", "مَتى"], // Ne / Ne zaman
         hint: "Akşam yemeğinde NE yersin? (Soru edatı)" 
     },
     // 10. Saat (Tam saat)
     { 
         pre: "أَذْهَبُ إِلى المَدْرَسَة في", 
-        post: "الثّامِنَة", 
+        post: "الثّامِنَة ( السّاعَة / يَوْم )", 
         a: ["السّاعَة"], 
+        choices: ["السّاعَة", "يَوْم"], // Saat / Gün
         hint: "... sekizde okula giderim (Saat)" 
     },
     // 11. Karşılıklı Gün İlişkisi
     { 
         pre: "يَوْم الاِثْنَيْن يَأْتي بَعْد يَوْم", 
-        post: "", 
+        post: " ( الأَحَد / الثُّلاثاء )", 
         a: ["الأَحَد"], 
+        choices: ["الأَحَد", "الثُّلاثاء"], // Pazar / Salı
         hint: "Pazartesi hangi günden sonra gelir? (Pazar)" 
     },
     // 12. Cuma Günü Sıralaması
     { 
         pre: "يَوْم الجُمُعَة يَأْتي بَعْد يَوْم", 
-        post: "", 
+        post: " ( الخَميس / السَّبْت )", 
         a: ["الخَميس"], 
+        choices: ["الخَميس", "السَّبْت"], // Perşembe / Cumartesi
         hint: "Cuma hangi günden sonra gelir? (Perşembe)" 
     },
     // 13. Namaz Vakti (Güneş Doğmadan)
     { 
         pre: "أُصَلّي الفَجْر قَبْل شُروق", 
-        post: "", 
+        post: " ( الشَّمْس / النَّوْم )", 
         a: ["الشَّمْس"], 
+        choices: ["الشَّمْس", "النَّوْم"], // Güneş / Uyku
         hint: "Güneş doğmadan önce (Güneş)" 
     },
     // 14. Akşam Yemeği (Balık)
     { 
         pre: "أَتَناوَلُ السَّمَك في", 
-        post: "", 
+        post: " ( العَشاء / الفَطور )", 
         a: ["الغَداء", "العَشاء"], 
+        choices: ["العَشاء", "الفَطور"], // Akşam yemeği / Kahvaltı
         hint: "Balık yediğim öğün (Öğle veya Akşam yemeği)" 
     },
     // 15. Hijyen (El yıkama)
     { 
         pre: "أَغْسِلُ", 
-        post: "قَبْل الطَّعام", 
+        post: "قَبْل الطَّعام ( يَدَيّ / مَلابِسي )", 
         a: ["يَدَيّ"], 
+        choices: ["يَدَيّ", "مَلابِسي"], // Ellerimi / Kıyafetlerimi
         hint: "Yemekten önce yıkadığım yer (Ellerim)" 
     },
     // 16. Akşam Namazı (Güneş Batışı)
     { 
         pre: "أُصَلّي المَغْرِب بَعْد غُروب", 
-        post: "", 
+        post: " ( الشَّمْس / الفَجْر )", 
         a: ["الشَّمْس"], 
+        choices: ["الشَّمْس", "الفَجْر"], // Güneş / Sabah namazı (Fecr)
         hint: "Akşam namazı neyin batışından sonradır?" 
     },
     // 17. Sayısal Saat
      { 
         pre: "أَنامُ", 
-        post: "السّاعَة الحادِيَة عَشْرَة لَيْلًا", 
+        post: "السّاعَة الحادِيَة عَشْرَة لَيْلًا ( في / إِلى )", 
         a: ["بَعْد","قَبْل","في"], 
+        choices: ["في", "إِلى"], // -de, -da / -e doğru
         hint: "Saat on birDE uyurum (-de/-da eki)" 
     },
     // 18. Gün Sıralaması (Salı)
     { 
         pre: "يَوْم الثُّلاثاء يَأْتي قَبْل يَوْم", 
-        post: "", 
+        post: " ( الأَرْبِعاء / الاِثْنَيْن )", 
         a: ["الأَرْبِعاء","الاربعاء"], 
+        choices: ["الأَرْبِعاء", "الاِثْنَيْن"], // Çarşamba / Pazartesi
         hint: "Salı hangi günden öncedir? (Çarşamba)" 
     },
     // 19. Kahvaltı (Bal-Tereyağı)
     { 
         pre: "آكُلُ العَسَل وَالزُّبْدَة في", 
-        post: "", 
+        post: " ( الفَطور / العَشاء )", 
         a: ["الفَطور"], 
+        choices: ["الفَطور", "العَشاء"], // Kahvaltı / Akşam yemeği
         hint: "Bal ve tereyağı yenen öğün" 
     },
     // 20. Yardım Etme
     { 
         pre: "أُساعِدُ أُمّي في", 
-        post: "", 
-        a: ["المَطْبَخ","البَيْت"], 
+        post: " ( البَيْت / المَدْرَسَة )", 
+        a: ["البَيْت"], 
+        choices: ["البَيْت", "المَدْرَسَة"], // Ev / Okul
         hint: "Anneme nerede yardım ederim? (Evde)" 
     }
 ];
