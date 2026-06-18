@@ -480,7 +480,6 @@
         }
     </style>
     <!-- Polyfill'i alternatif durumlar için yine de tutuyoruz, native eventler öncelikli çalışacaktır -->
-    <script src="https://cdn.jsdelivr.net/npm/drag-drop-touch@1.3.1/DragDropTouch.js"></script>
 </head>
 <body>
 
@@ -688,21 +687,23 @@
             });
             d.addEventListener('dragend', () => d.classList.remove('mouse-dragging'));
 
-            // --- 2. DOKUNMATİK EKRANLAR İÇİN GÜNCELLENMİŞ NATIVE TOUCH EVENTS ---
+            // --- 2. DOKUNMATİK EKRANLAR İÇİN KUSURSUZ NATIVE TOUCH EVENTS ---
             let startX, startY, initialRect, originalParent;
 
             d.addEventListener('touchstart', e => {
                 if (d.classList.contains('correct') || d.classList.contains('incorrect-shake')) return;
                 
+                // Tarayıcının metin seçme ve varsayılan sürükleme olaylarını iptal et (Çakışmaları önler)
+                e.preventDefault(); 
+                
                 const touch = e.touches[0];
                 startX = touch.clientX;
                 startY = touch.clientY;
                 
-                // Elemanın o anki boyutlarını ve yerini alıyoruz
                 initialRect = d.getBoundingClientRect();
                 originalParent = d.parentNode;
 
-                // Eski yerinde boşluk kalması için görünmez bir hayalet (placeholder) oluşturuyoruz (kaymalar olmasın diye)
+                // Boşluk kalması için hayalet element ekle
                 const placeholder = document.createElement('div');
                 placeholder.id = 'ghost-' + d.id;
                 placeholder.style.width = initialRect.width + 'px';
@@ -710,14 +711,14 @@
                 placeholder.style.margin = '0 auto';
                 originalParent.insertBefore(placeholder, d);
 
-                // Elemanı serbest bırakıp direkt body'e (ekranın tam üstüne) yapıştırıyoruz
+                // Elemanı serbest bırakıp body'e (ekranın tam üstüne) yapıştırıyoruz
                 d.classList.add('mouse-dragging');
                 d.style.position = 'fixed';
                 d.style.left = initialRect.left + 'px';
                 d.style.top = initialRect.top + 'px';
-                d.style.width = initialRect.width + 'px'; // Kendi genişliğini koru
+                d.style.width = initialRect.width + 'px'; 
                 d.style.margin = '0';
-                d.style.zIndex = '99999'; // En üstte tut
+                d.style.zIndex = '99999'; 
                 d.style.transition = 'none';
 
                 document.body.appendChild(d);
@@ -731,16 +732,21 @@
                 const moveX = touch.clientX - startX;
                 const moveY = touch.clientY - startY;
                 
-                // Parmağı takip ettiriyoruz
                 d.style.transform = `translate(${moveX}px, ${moveY}px)`;
             }, { passive: false });
 
             d.addEventListener('touchend', e => {
                 if (!d.classList.contains('mouse-dragging')) return;
                 
-                d.classList.remove('mouse-dragging');
+                const touch = e.changedTouches[0];
                 
-                // Sürükleme için eklediğimiz geçici stilleri temizliyoruz
+                // 1. Önce bırakılan yerdeki hedefi bul (Stilleri sıfırlamadan ÖNCE, layout kaymasını önler)
+                d.style.visibility = 'hidden';
+                const elemBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+                d.style.visibility = 'visible';
+
+                // 2. Şimdi geçici stilleri güvenle silebiliriz
+                d.classList.remove('mouse-dragging');
                 d.style.position = '';
                 d.style.left = '';
                 d.style.top = '';
@@ -749,27 +755,21 @@
                 d.style.zIndex = '';
                 d.style.transition = ''; 
                 d.style.transform = ''; 
-                
+
                 const placeholder = document.getElementById('ghost-' + d.id);
-                const touch = e.changedTouches[0];
-                
-                // Bırakılan yerdeki kutuyu bul
-                d.style.visibility = 'hidden';
-                const elemBelow = document.elementFromPoint(touch.clientX, touch.clientY);
-                d.style.visibility = 'visible';
-                
                 let droppedInZone = false;
 
+                // Hedef kontrolü
                 if (elemBelow) {
                     const targetZone = elemBelow.closest('.category-drop-zone');
                     if (targetZone) {
-                        targetZone.appendChild(d); // Kutuya ekle
-                        if (placeholder) placeholder.remove(); // Hayaleti sil
+                        targetZone.appendChild(d); 
+                        if (placeholder) placeholder.remove(); 
                         droppedInZone = true;
                         
                         if (targetZone.dataset.category === d.dataset.wordCat) {
                             d.classList.add('correct');
-                            d.draggable = false;
+                            d.draggable = false; // Masaüstü D&D için kilit
                             playSound('correct');
                             checkWin();
                         } else {
@@ -778,7 +778,7 @@
                     }
                 }
 
-                // Eğer yanlışlıkla dışarı bırakıldıysa (hiçbir kutuya girmediyse) eski yerine yolla
+                // Kutuya denk gelmediyse eski yerine döndür
                 if (!droppedInZone) {
                     if (placeholder) {
                         originalParent.insertBefore(d, placeholder);
@@ -790,6 +790,7 @@
             });
         });
 
+        // Masaüstü için standart Drop alanları ayarları
         zones.forEach(z => {
             z.addEventListener('dragover', e => e.preventDefault());
             z.addEventListener('drop', e => {
