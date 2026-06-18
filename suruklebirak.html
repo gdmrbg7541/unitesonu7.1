@@ -676,7 +676,7 @@
         setupEvents();
     }
 
-    function setupEvents() {
+ function setupEvents() {
         const draggables = document.querySelectorAll('.word-item');
         const zones = document.querySelectorAll('.category-drop-zone, .word-bank-container');
 
@@ -688,8 +688,8 @@
             });
             d.addEventListener('dragend', () => d.classList.remove('mouse-dragging'));
 
-            // --- 2. DOKUNMATİK EKRANLAR (TAHTA/TELEFON) İÇİN NATIVE TOUCH EVENTS ---
-            let startX, startY;
+            // --- 2. DOKUNMATİK EKRANLAR İÇİN GÜNCELLENMİŞ NATIVE TOUCH EVENTS ---
+            let startX, startY, initialRect, originalParent;
 
             d.addEventListener('touchstart', e => {
                 if (d.classList.contains('correct') || d.classList.contains('incorrect-shake')) return;
@@ -698,19 +698,40 @@
                 startX = touch.clientX;
                 startY = touch.clientY;
                 
+                // Elemanın o anki boyutlarını ve yerini alıyoruz
+                initialRect = d.getBoundingClientRect();
+                originalParent = d.parentNode;
+
+                // Eski yerinde boşluk kalması için görünmez bir hayalet (placeholder) oluşturuyoruz (kaymalar olmasın diye)
+                const placeholder = document.createElement('div');
+                placeholder.id = 'ghost-' + d.id;
+                placeholder.style.width = initialRect.width + 'px';
+                placeholder.style.height = initialRect.height + 'px';
+                placeholder.style.margin = '0 auto';
+                originalParent.insertBefore(placeholder, d);
+
+                // Elemanı serbest bırakıp direkt body'e (ekranın tam üstüne) yapıştırıyoruz
                 d.classList.add('mouse-dragging');
-                d.style.zIndex = '1000';
-                d.style.transition = 'none'; // Sürüklerken animasyon gecikmesini kapat
+                d.style.position = 'fixed';
+                d.style.left = initialRect.left + 'px';
+                d.style.top = initialRect.top + 'px';
+                d.style.width = initialRect.width + 'px'; // Kendi genişliğini koru
+                d.style.margin = '0';
+                d.style.zIndex = '99999'; // En üstte tut
+                d.style.transition = 'none';
+
+                document.body.appendChild(d);
             }, { passive: false });
 
             d.addEventListener('touchmove', e => {
                 if (!d.classList.contains('mouse-dragging')) return;
-                e.preventDefault(); // Sürüklerken sayfa kaymasını kesinlikle engelle
+                e.preventDefault(); 
                 
                 const touch = e.touches[0];
                 const moveX = touch.clientX - startX;
                 const moveY = touch.clientY - startY;
                 
+                // Parmağı takip ettiriyoruz
                 d.style.transform = `translate(${moveX}px, ${moveY}px)`;
             }, { passive: false });
 
@@ -718,23 +739,33 @@
                 if (!d.classList.contains('mouse-dragging')) return;
                 
                 d.classList.remove('mouse-dragging');
-                d.style.transition = ''; 
-                d.style.zIndex = '';
                 
+                // Sürükleme için eklediğimiz geçici stilleri temizliyoruz
+                d.style.position = '';
+                d.style.left = '';
+                d.style.top = '';
+                d.style.width = '';
+                d.style.margin = '';
+                d.style.zIndex = '';
+                d.style.transition = ''; 
+                d.style.transform = ''; 
+                
+                const placeholder = document.getElementById('ghost-' + d.id);
                 const touch = e.changedTouches[0];
                 
-                // Parmağın bırakıldığı noktadaki kutuyu bulmak için elementi anlık gizliyoruz
+                // Bırakılan yerdeki kutuyu bul
                 d.style.visibility = 'hidden';
                 const elemBelow = document.elementFromPoint(touch.clientX, touch.clientY);
                 d.style.visibility = 'visible';
                 
-                // Yeni yerine geçeceği veya hata animasyonu yapacağı için transformu sıfırla
-                d.style.transform = ''; 
+                let droppedInZone = false;
 
                 if (elemBelow) {
                     const targetZone = elemBelow.closest('.category-drop-zone');
                     if (targetZone) {
-                        targetZone.appendChild(d); // Kutunun içine bırak
+                        targetZone.appendChild(d); // Kutuya ekle
+                        if (placeholder) placeholder.remove(); // Hayaleti sil
+                        droppedInZone = true;
                         
                         if (targetZone.dataset.category === d.dataset.wordCat) {
                             d.classList.add('correct');
@@ -742,9 +773,18 @@
                             playSound('correct');
                             checkWin();
                         } else {
-                            handleMistake(d); // Hata sistemi aynı şekilde çalışır
+                            handleMistake(d);
                         }
-                        return;
+                    }
+                }
+
+                // Eğer yanlışlıkla dışarı bırakıldıysa (hiçbir kutuya girmediyse) eski yerine yolla
+                if (!droppedInZone) {
+                    if (placeholder) {
+                        originalParent.insertBefore(d, placeholder);
+                        placeholder.remove();
+                    } else {
+                        originalParent.appendChild(d);
                     }
                 }
             });
