@@ -70,7 +70,7 @@
     /* GÜNCELLEME: Minimum genişlik ve yükseklik eklendi */
     width: 95vw;
     max-width: 1200px; /* Çok geniş ekranlarda devasa olmaması için */
-    min-width: 800px;  /* Tam ekrandan çıkınca aşırı küçülmeyi engeller */
+    min-width: min(800px, 95vw);  /* Tam ekrandan çıkınca aşırı küçülmeyi engeller */
     
     height: auto; 
     min-height: 500px; /* İçeriğin sıkışmasını önler */
