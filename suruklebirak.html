@@ -801,8 +801,16 @@ function setupEvents() {
         const fsBtn = document.getElementById('fullscreen-btn');
         if (fsBtn) {
             fsBtn.addEventListener('click', () => {
-                if (!document.fullscreenElement) document.documentElement.requestFullscreen();
-                else document.exitFullscreen();
+                try {
+                    const docElm = document.documentElement;
+                    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                        if (docElm.requestFullscreen) docElm.requestFullscreen().catch(e=>console.log(e));
+                        else if (docElm.webkitRequestFullscreen) docElm.webkitRequestFullscreen();
+                    } else {
+                        if (document.exitFullscreen) document.exitFullscreen();
+                        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+                    }
+                } catch(e) {}
             });
         }
     });

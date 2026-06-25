@@ -494,14 +494,18 @@
 /* --- MOBİL YATAY (LANDSCAPE) MOD KÜÇÜLTME YAMASI (TAM SÜRÜM) --- */
 /* ------------------------------------------------------------------ */
 @media only screen and (max-height: 900px) and (orientation: landscape) {
-    /* Yükseklik sığmama ve klavye/cümle kesilme sorunu yaması */
-    .activity-container {
-        height: 100vh !important;
-        min-height: 0 !important;
+    /* Yükseklik sığmama ve klavye/cümle kesilme sorunu yaması (Body kaydırma aktif) */
+    body {
         overflow-y: auto !important;
+        height: auto !important;
+        min-height: 100vh !important;
+    }
+    .activity-container {
+        height: auto !important;
+        min-height: 100vh !important;
+        overflow-y: visible !important;
     }
 
-    
     /* --- Genel Düzen ve Başlık --- */
     .header {
         padding: 5px 10px;
@@ -1009,16 +1013,32 @@ const activitiesData = [
         let scoreIncorrect = 0; 
 
         // --- Tam Ekran ---
-        function toggleFullScreen() {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen();
-            } else {
-                if (document.exitFullscreen) document.exitFullscreen();
+                function toggleFullScreen() {
+            try {
+                const docElm = document.documentElement;
+                if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                    if (docElm.requestFullscreen) {
+                        docElm.requestFullscreen().catch(err => console.log(err));
+                    } else if (docElm.webkitRequestFullscreen) {
+                        docElm.webkitRequestFullscreen();
+                    }
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                    }
+                }
+            } catch (e) {
+                console.log("Fullscreen error:", e);
             }
         }
         function checkFullScreen() {
-             if (document.fullscreenElement) document.body.classList.add('fullscreen');
-             else document.body.classList.remove('fullscreen');
+             if (document.fullscreenElement || document.webkitFullscreenElement) {
+                 document.body.classList.add('fullscreen');
+             } else {
+                 document.body.classList.remove('fullscreen');
+             }
         }
         if(fullscreenButton) fullscreenButton.addEventListener('click', toggleFullScreen);
         document.addEventListener('fullscreenchange', checkFullScreen);
